@@ -1,22 +1,45 @@
 namespace CampoMinato2
 {
     using System;
+    using System.Runtime.CompilerServices;
     using NAudio.Wave;
     public partial class Form1 : Form
     {
 
         FImpostazioni impostazioni = new FImpostazioni();
-
         public Form1()
         {
             InitializeComponent();
+
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint, true);
+            this.UpdateStyles();
+
+            this.BackgroundImage = Image.FromFile("background_main.png"); //Immagine di sfondo
+            this.BackgroundImageLayout = ImageLayout.Stretch; //Adatto l'immagine di sfondo alla finestra
+
             Inizializzazioni();
             InizializzazioneGrafica();
         }
 
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            if (this.BackgroundImage != null)
+            {
+                e.Graphics.DrawImage(this.BackgroundImage, this.ClientRectangle);
+            }
+            else
+            {
+                base.OnPaintBackground(e);
+            }
+        }
+
         private void btn_Impostazioni_Click(object sender, EventArgs e)
         {
-            //impostazioni.pulsantePremuto();
+            impostazioni.pulsantePremuto();
             impostazioni.ShowDialog();
         }
 
@@ -25,8 +48,7 @@ namespace CampoMinato2
             //metto a schermo intero
             this.FormBorderStyle = FormBorderStyle.None; //Tolgo il bordo della finestra
             this.WindowState = FormWindowState.Maximized; //Metto a schermo intero
-            this.BackgroundImage = Image.FromFile("background_main.png"); //Immagine di sfondo
-            this.BackgroundImageLayout = ImageLayout.Stretch; //Adatto l'immagine di sfondo alla finestra
+
             this.Text = "Campo Minato";
 
             //prendo i dati della finestra
@@ -68,7 +90,7 @@ namespace CampoMinato2
 
             //pulsante impostazioni
             btn_Impostazioni.Left = (width - btn_Impostazioni.Width) / 2; //centro in orizzontale
-            btn_Impostazioni.Top = ((height - btn_Impostazioni.Height) / 2) + 200; //centro in verticale
+            btn_Impostazioni.Top = ((height - btn_Impostazioni.Height) / 2) +200; //centro in verticale
             btn_Impostazioni.BackgroundImage = Image.FromFile("Impostazioni.png"); // immagine
             btn_Impostazioni.BackgroundImageLayout = ImageLayout.Stretch; //adatto l'immagine al pulsante
             btn_Impostazioni.FlatStyle = FlatStyle.Flat; //pulsante senza bordo
@@ -84,22 +106,16 @@ namespace CampoMinato2
 
         private void btn_gioca_Click(object sender, EventArgs e)
         {
-            FGioca gioca = new FGioca(impostazioni);
+            FGioca gioca = new FGioca(impostazioni, this);
 
-            //impostazioni.pulsantePremuto();
+            impostazioni.pulsantePremuto();
             gioca.Show();
         }
 
         private void btn_esci_Click(object sender, EventArgs e)
         {
-            //impostazioni.pulsantePremuto();
+            impostazioni.pulsantePremuto();
             Application.Exit();
-        }
-
-        private void btn_carica_Click(object sender, EventArgs e)
-        {
-            FCarica carica = new FCarica(impostazioni);
-            carica.Show();
         }
     }
 }
