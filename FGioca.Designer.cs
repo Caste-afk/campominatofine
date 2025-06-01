@@ -46,6 +46,7 @@
             // 
             // lbl_grandezzagriglia
             // 
+            lbl_grandezzagriglia.BackColor = Color.Transparent;
             lbl_grandezzagriglia.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbl_grandezzagriglia.Location = new Point(118, 31);
             lbl_grandezzagriglia.Name = "lbl_grandezzagriglia";
@@ -56,18 +57,20 @@
             // 
             // tbr_Griglia
             // 
+            tbr_Griglia.BackColor = Color.FromArgb(192, 190, 188);
             tbr_Griglia.LargeChange = 1;
             tbr_Griglia.Location = new Point(34, 92);
             tbr_Griglia.Margin = new Padding(3, 4, 3, 4);
             tbr_Griglia.Maximum = 3;
             tbr_Griglia.Minimum = 1;
             tbr_Griglia.Name = "tbr_Griglia";
-            tbr_Griglia.Size = new Size(459, 56);
+            tbr_Griglia.Size = new Size(420, 56);
             tbr_Griglia.TabIndex = 1;
             tbr_Griglia.Value = 3;
             // 
             // lbl_10x10
             // 
+            lbl_10x10.BackColor = Color.Transparent;
             lbl_10x10.Location = new Point(34, 140);
             lbl_10x10.Name = "lbl_10x10";
             lbl_10x10.Size = new Size(35, 31);
@@ -76,6 +79,7 @@
             // 
             // lbl_30x30
             // 
+            lbl_30x30.BackColor = Color.Transparent;
             lbl_30x30.Location = new Point(246, 140);
             lbl_30x30.Name = "lbl_30x30";
             lbl_30x30.Size = new Size(53, 31);
@@ -84,6 +88,7 @@
             // 
             // lbl_50x50
             // 
+            lbl_50x50.BackColor = Color.Transparent;
             lbl_50x50.Location = new Point(442, 140);
             lbl_50x50.Name = "lbl_50x50";
             lbl_50x50.Size = new Size(63, 31);
@@ -92,6 +97,7 @@
             // 
             // lbl_50
             // 
+            lbl_50.BackColor = Color.Transparent;
             lbl_50.Location = new Point(470, 340);
             lbl_50.Name = "lbl_50";
             lbl_50.Size = new Size(45, 31);
@@ -100,6 +106,7 @@
             // 
             // lbl_25
             // 
+            lbl_25.BackColor = Color.Transparent;
             lbl_25.Location = new Point(251, 340);
             lbl_25.Name = "lbl_25";
             lbl_25.Size = new Size(39, 31);
@@ -108,6 +115,7 @@
             // 
             // lbl_10
             // 
+            lbl_10.BackColor = Color.Transparent;
             lbl_10.Location = new Point(34, 340);
             lbl_10.Name = "lbl_10";
             lbl_10.Size = new Size(40, 31);
@@ -116,19 +124,21 @@
             // 
             // tbr_Bombe
             // 
+            tbr_Bombe.BackColor = Color.FromArgb(192, 190, 188);
             tbr_Bombe.LargeChange = 1;
             tbr_Bombe.Location = new Point(34, 300);
             tbr_Bombe.Margin = new Padding(3, 4, 3, 4);
             tbr_Bombe.Maximum = 3;
             tbr_Bombe.Minimum = 1;
             tbr_Bombe.Name = "tbr_Bombe";
-            tbr_Bombe.Size = new Size(459, 56);
+            tbr_Bombe.Size = new Size(420, 56);
             tbr_Bombe.TabIndex = 8;
             tbr_Bombe.Value = 1;
             tbr_Bombe.Scroll += tbr_Bombe_Scroll;
             // 
             // lbl_Bombe
             // 
+            lbl_Bombe.BackColor = Color.Transparent;
             lbl_Bombe.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             lbl_Bombe.Location = new Point(123, 231);
             lbl_Bombe.Name = "lbl_Bombe";
@@ -139,24 +149,24 @@
             // 
             // btn_Gioca
             // 
+            btn_Gioca.BackColor = Color.Transparent;
             btn_Gioca.Location = new Point(89, 464);
             btn_Gioca.Margin = new Padding(3, 4, 3, 4);
             btn_Gioca.Name = "btn_Gioca";
-            btn_Gioca.Size = new Size(145, 84);
+            btn_Gioca.Size = new Size(145, 75);
             btn_Gioca.TabIndex = 12;
-            btn_Gioca.Text = "Gioca!";
-            btn_Gioca.UseVisualStyleBackColor = true;
+            btn_Gioca.UseVisualStyleBackColor = false;
             btn_Gioca.Click += btn_Gioca_Click;
             // 
             // btn_Esci
             // 
+            btn_Esci.BackColor = Color.Transparent;
             btn_Esci.Location = new Point(277, 464);
             btn_Esci.Margin = new Padding(3, 4, 3, 4);
             btn_Esci.Name = "btn_Esci";
-            btn_Esci.Size = new Size(145, 84);
+            btn_Esci.Size = new Size(145, 75);
             btn_Esci.TabIndex = 13;
-            btn_Esci.Text = "Esci";
-            btn_Esci.UseVisualStyleBackColor = true;
+            btn_Esci.UseVisualStyleBackColor = false;
             btn_Esci.Click += btn_Esci_Click;
             // 
             // FGioca

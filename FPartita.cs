@@ -14,42 +14,37 @@ namespace CampoMinato2
 {
     public partial class FPartita : Form
     {
-
+        Image imgFlag;
         int[,] campo;
-        bool firstClick = true; // per gestire il primo click
         FImpostazioni impostazioni;
-        int numeroCelle;
-        int bombe;
 
-        public FPartita(double ncelle, int bombe, FImpostazioni i)
+        public FPartita(double ncelle, int bombe, FImpostazioni i, Form1 f)
         {
             impostazioni = i;
+            //pulisco tutto dal form1 per ridurre l'uso di memoria
+            f.Controls.Clear();
+            f.BackgroundImage = null;
+            f.Hide();
             InitializeComponent();
+
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint, true);
+            this.BackgroundImage = Image.FromFile("bg_Partita.png");
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+
             CreaTabellone(ncelle);
             Inizializzazioni();
             generaMine(bombe, ncelle);
-            this.bombe = bombe;
+            imgFlag = Image.FromFile("flag.png");
+
+
         }
-
-        // costruttore per matrice in input(caricapartita)
-        public FPartita(int[,] matrice, double ncelle, FImpostazioni i)
-        {
-            impostazioni = i;
-            InitializeComponent();
-            campo = matrice;
-            CreaTabellone(ncelle); 
-            Inizializzazioni();
-            this.bombe = bombe;
-            // Eventualmente aggiorna la griglia con la matrice già data
-            PopolaTabelloneDaMatrice(matrice);
-        }
-
-
 
         private void CreaTabellone(double ncelle)
         {
-            ncelle *= 10;
-            numeroCelle = (int)ncelle;
+            int numeroCelle = (int)(ncelle * 10);
 
             dgv_main.CellClick += dgv_main_CellClick;
             dgv_main.CellMouseDown += dgv_main_CellMouseDown;
@@ -76,13 +71,13 @@ namespace CampoMinato2
             {
                 for (int j = 0; j < numeroCelle; j++)
                 {
-                    var cell = dgv_main.Rows[i].Cells[j];
-                    cell.Value = "";
-                    cell.Style.BackColor = Color.LightGray;
-                    cell.Style.ForeColor = Color.Black;
-                    cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    cell.Style.Font = new Font("Arial", 12, FontStyle.Bold);
-                    cell.Style.Padding = new Padding(0);
+                    var cella = dgv_main.Rows[i].Cells[j];
+                    cella.Value = ""; // inizializzo la cella come vuota
+                    cella.Style.BackColor = Color.LightGray; // imposto il colore di sfondo della cella
+                    cella.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // allineamento del testo al centro
+                    cella.Style.Font = new Font("Arial", 12, FontStyle.Bold); // imposto il font della cella
+                    cella.Style.ForeColor = Color.Black; // imposto il colore del testo della cella
+
                 }
             }
 
@@ -91,42 +86,10 @@ namespace CampoMinato2
             dgv_main.ClearSelection();
         } //FUNZIONE PER CREARE IL TABELLONE
 
-
-
-        public void PopolaTabelloneDaMatrice(int[,] matrice)
-        {
-            for (int i = 0; i < numeroCelle; i++)
-            {
-                for (int j = 0; j < numeroCelle; j++)
-                {
-                    if (matrice[i, j] >= 30)
-                    {
-                        matrice[i, j] -= 30;
-                        dgv_main.Rows[i].Cells[j].Value = "F";
-                        dgv_main.Rows[i].Cells[j].Style.BackColor = Color.Yellow;
-                    }
-                    // Gestione celle scoperte (valore >= 10, escluse quelle già gestite)
-                    else if (matrice[i, j] >= 10)
-                    {
-                        matrice[i, j] -= 10;
-                        ScopriCelle(i, j);
-                        if (matrice[i, j] == 0)
-                        {
-                            dgv_main.Rows[i].Cells[j].Value = "";
-                        }
-                    }
-                }
-            }
-            campo = matrice;
-        }
-
-
         private void Inizializzazioni()
         {
             this.FormBorderStyle = FormBorderStyle.None; //Tolgo il bordo della finestra
             this.WindowState = FormWindowState.Maximized; //Metto a schermo intero
-            this.BackgroundImage = Image.FromFile("background_main.png"); //Immagine di sfondo
-            this.BackgroundImageLayout = ImageLayout.Stretch;
 
             //metto il campo in centro a sinistra
             int width = this.Width = Screen.PrimaryScreen.Bounds.Width; //Larghezza della finestra
@@ -135,7 +98,35 @@ namespace CampoMinato2
             dgv_main.Left = (width - dgv_main.Width) / 2; //centro in orizzontale
             dgv_main.Top = ((height - dgv_main.Height) / 2) - 100; //centro in verticale
 
-            dgv_main.ClearSelection();
+            //pulsante in alto a destra
+            btn_Informazioni.Left = width - btn_Informazioni.Width - 20; //posizione a destra
+            btn_Informazioni.Top = 20; //posizione in alto
+            btn_Informazioni.BackgroundImage = Image.FromFile("question.png"); //Immagine del pulsante informazioni
+            btn_Informazioni.BackgroundImageLayout = ImageLayout.Stretch; //Adatta l'immagine al pulsante
+            btn_Informazioni.FlatStyle = FlatStyle.Flat; //Rende il pulsante senza bordi
+            btn_Informazioni.FlatAppearance.BorderSize = 0; //Rimuove il bordo del pulsante
+            btn_Informazioni.FlatAppearance.MouseOverBackColor = Color.Transparent; //Rende il pulsante trasparente quando si passa sopra con il mouse
+            btn_Informazioni.FlatAppearance.MouseDownBackColor = Color.Transparent; //Rende il pulsante trasparente quando si clicca sopra
+
+            btn_Impostazioni.Left = width - btn_Impostazioni.Width - 20; //posizione a destra
+            btn_Impostazioni.Top = btn_Informazioni.Top + btn_Informazioni.Height + 20; //posizione sotto il pulsante informazioni
+            btn_Impostazioni.BackgroundImage = Image.FromFile("impo_small.png"); //Immagine del pulsante impostazioni
+            btn_Impostazioni.BackgroundImageLayout = ImageLayout.Stretch; //Adatta l'immagine al pulsante
+            btn_Impostazioni.FlatStyle = FlatStyle.Flat; //Rende il pulsante senza bordi
+            btn_Impostazioni.FlatAppearance.BorderSize = 0; //Rimuove il bordo del pulsante
+            btn_Impostazioni.FlatAppearance.MouseOverBackColor = Color.Transparent; //Rende il pulsante trasparente quando si passa sopra con il mouse
+            btn_Impostazioni.FlatAppearance.MouseDownBackColor = Color.Transparent; //Rende il pulsante trasparente quando si clicca sopra
+
+            btn_SaveGame.Left = width - btn_SaveGame.Width - 20; //posizione a destra
+            btn_SaveGame.Top = btn_Impostazioni.Top + btn_Impostazioni.Height + 20; //posizione sotto il pulsante impostazioni
+            btn_SaveGame.BackgroundImage = Image.FromFile("save.png"); //Immagine del pulsante salvataggio
+            btn_SaveGame.BackgroundImageLayout = ImageLayout.Stretch; //Adatta l'immagine al pulsante
+            btn_SaveGame.FlatStyle = FlatStyle.Flat; //Rende il pulsante senza bordi
+            btn_SaveGame.FlatAppearance.BorderSize = 0; //Rimuove il bordo del pulsante
+            btn_SaveGame.FlatAppearance.MouseOverBackColor = Color.Transparent; //Rende il pulsante trasparente quando si passa sopra con il mouse
+            btn_SaveGame.FlatAppearance.MouseDownBackColor = Color.Transparent; //Rende il pulsante trasparente quando si clicca sopra
+
+
         }
 
 
@@ -194,9 +185,10 @@ namespace CampoMinato2
 
         private void dgv_main_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //impostazioni.cellaCliccata(); // trigger del suono quando si preme una cella
+            impostazioni.cellaCliccata(); // trigger del suono quando si preme una cella
 
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // esce se la cella non è valida
+            if (dgv_main.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "F") return; // esce se la cella è flaggata
             int x = e.RowIndex;
             int y = e.ColumnIndex;
 
@@ -211,7 +203,6 @@ namespace CampoMinato2
                 ScopriCircostanti(x - 1, y + 1);
                 ScopriCircostanti(x - 1, y);
                 ScopriCircostanti(x - 1, y - 1);
-                campo[x, y] = campo[x, y] + 10;
             }
 
             if (campo[x, y] == -1)
@@ -234,7 +225,17 @@ namespace CampoMinato2
                 }
             }
 
-            
+            foreach (DataGridViewRow row in dgv_main.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString() == "0")
+                    {
+                        cell.Value = ""; // imposta la cella come vuota
+                        cell.Style.BackColor = Color.LightBlue; // cambia il colore della cella
+                    }
+                }
+            }
 
             dgv_main.ClearSelection(); // rimuove la selezione della cella dopo il click
         }
@@ -261,37 +262,78 @@ namespace CampoMinato2
             }
         }
 
-        private void LoseGame()
+        private async void LoseGame()
         {
+            for (int i = 0; i < campo.GetLength(0); i++)
+            {
+                for (int j = 0; j < campo.GetLength(1); j++)
+                {
+                    //se si ha messo un flag nel posto sbagliato allora faccio una X arancione
+                    if (campo[i, j] == -1)
+                    {
+                        //se ce una flag, metto arancione e una X
+
+                        if (dgv_main.Rows[i].Cells[j].Value.ToString() == "F")
+                        {
+                            dgv_main.Rows[i].Cells[j].Value = "F";
+                            dgv_main.Rows[i].Cells[j].Style.BackColor = Color.Green;
+                        }
+                        else
+                        {
+                            Image img = Image.FromFile("mina.png");
+                            DataGridViewImageCell imgCell = new DataGridViewImageCell();
+                            imgCell.Value = img;
+                            imgCell.Style.BackColor = Color.FromArgb(45, 45, 48);
+                            imgCell.ImageLayout = DataGridViewImageCellLayout.Zoom;
+                            dgv_main.Rows[i].Cells[j] = imgCell;
+                        }
+                    }
+                    else if (dgv_main.Rows[i].Cells[j].Value.ToString() == "F")
+                    {
+                        Image flagImg = Image.FromFile("flagSbagliata.png");
+                        DataGridViewImageCell imgCell = new DataGridViewImageCell();
+                        imgCell.Value = flagImg;
+                        imgCell.ImageLayout = DataGridViewImageCellLayout.Stretch;
+                        dgv_main.Rows[i].Cells[j] = imgCell;
+                        dgv_main.Rows[i].Cells[j].Style.BackColor = Color.FromArgb(159, 114, 32);
+                    }
+                }
+            }
+
+            dgv_main.Refresh(); // forza ridisegno
+            await Task.Delay(3000); // attende in modo non bloccante
+
+            immagineLose();
+        }
+
+        private void immagineLose()
+        {
+            Thread.Sleep(1000); // attende 1 secondo prima di mostrare l'immagine
+
+
             this.BackgroundImage = Image.FromFile("ah.png");
             dgv_main.Hide();
-            MessageBox.Show("Hai perso! Hai cliccato su una mina.", "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Application.Exit(); // chiude l'applicazione
+
+            //messagebox con scelta di ricominciare o uscire
+            DialogResult result = MessageBox.Show("Hai perso! Vuoi ricominciare?", "Game Over", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+            if (result == DialogResult.Yes)
+            {
+                Application.Restart(); // riavvia l'applicazione
+            }
+            else
+            {
+                Application.Exit(); // chiude l'applicazione
+            }
         }
 
         private void ScopriCelle(int x, int y)
         {
-            if (x < 0 || x >= campo.GetLength(0) || y < 0 || y >= campo.GetLength(1)) return;//controlla se cella valida
-
-            if (campo[x, y] >= 10) return;//controlla se flag
-
-            if (dgv_main.Rows[x].Cells[y].Value != null && dgv_main.Rows[x].Cells[y].Value.ToString() == "F") return;
-
-            int valoreCella = campo[x, y];
-            campo[x, y] += 10;
-
-            if (valoreCella == 0)
-            {
-                dgv_main.Rows[x].Cells[y].Value = ""; 
-            }
-            else
-            {
-                dgv_main.Rows[x].Cells[y].Value = valoreCella;
-            }
-
-            dgv_main.Rows[x].Cells[y].Style.BackColor = Color.LightBlue;
-
-            if (valoreCella == 0)
+            if (x < 0 || x >= campo.GetLength(0) || y < 0 || y >= campo.GetLength(1)) return; // esce se la cella non è valida
+            if (dgv_main.Rows[x].Cells[y].Value != null && dgv_main.Rows[x].Cells[y].Value.ToString() != "") return;
+            if (dgv_main.Rows[x].Cells[y].Value.ToString() == "F") return; // esce se la cella è flaggata
+            dgv_main.Rows[x].Cells[y].Value = campo[x, y]; // mostra il numero della cella
+            dgv_main.Rows[x].Cells[y].Style.BackColor = Color.LightBlue; // cambio colore della cella
+            if (campo[x, y] == 0)
             {
                 //scopro le celle vicine
                 ScopriCelle(x - 1, y - 1);
@@ -304,7 +346,6 @@ namespace CampoMinato2
                 ScopriCelle(x + 1, y + 1);
             }
         }
-
         private void dgv_main_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -321,14 +362,12 @@ namespace CampoMinato2
                 {
                     dgv_main.Rows[x].Cells[y].Value = "F"; // segna la cella come mina
                     dgv_main.Rows[x].Cells[y].Style.BackColor = Color.Yellow; // cambio colore della cella
-                    campo[x, y] += 40;
                 }
 
                 else if (dgv_main.Rows[x].Cells[y].Value.ToString() == "F")
                 {
                     dgv_main.Rows[x].Cells[y].Value = ""; // rimuove la segnalazione della mina
                     dgv_main.Rows[x].Cells[y].Style.BackColor = Color.LightGray; // ripristina il colore originale della cella
-                    campo[x, y] -= 40;
                 }
                 ControllaFlag();
             }
@@ -391,10 +430,55 @@ namespace CampoMinato2
             Application.Exit();
         }
 
-        private void btn_salva_Click(object sender, EventArgs e)
+        private void FPartita_Load(object sender, EventArgs e)
         {
-            FSalva salva = new FSalva(campo, numeroCelle, numeroCelle);
-            salva.Show();
+            dgv_main.CellPainting += dgv_main_CellPainting;
+        }
+
+        private void dgv_main_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            var cell = dgv_main.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            string value = cell.Value?.ToString();
+
+            // Disegna solo lo sfondo
+            e.PaintBackground(e.ClipBounds, true);
+
+            // Dimensione e posizione dell'immagine centrata
+            int imgSize = Math.Min(e.CellBounds.Width, e.CellBounds.Height) - 6;
+            Rectangle imgRect = new Rectangle(
+                e.CellBounds.X + (e.CellBounds.Width - imgSize) / 2,
+                e.CellBounds.Y + (e.CellBounds.Height - imgSize) / 2,
+                imgSize,
+                imgSize);
+
+            if (value == "F")
+            {
+                e.Graphics.DrawImage(imgFlag, imgRect); // immagine "F"
+                e.Handled = true;
+            }
+        }
+
+
+        private void btn_Informazioni_Click(object sender, EventArgs e)
+        {
+            FInformazioni info = new FInformazioni();
+            info.ShowDialog();
+
+        }
+
+        private void btn_Impostazioni_Click(object sender, EventArgs e)
+        {
+            impostazioni.pulsantePremuto();
+            this.Hide(); // nasconde il form della partita
+            impostazioni.ShowDialog(); // mostra il form delle impostazioni
+            this.Show(); // riporta a visibilità il form della partita
+        }
+
+        private void btn_SaveGame_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
