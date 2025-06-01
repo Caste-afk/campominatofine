@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.Wave;
 
+
 namespace CampoMinato2
 {
     public partial class FImpostazioni : Form
-    {/*
-        
+    {
+
         private AudioFileReader audio; // lettore audio di NAudio (libreria installata)
         private WaveOutEvent player; // riproduttore dell'audio
 
@@ -25,7 +26,29 @@ namespace CampoMinato2
         public FImpostazioni()
         {
             InitializeComponent();
+
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint, true);
+            this.UpdateStyles();
+
+            this.BackgroundImage = Image.FromFile("bgImpo.png"); //Immagine di sfondo
+            this.BackgroundImageLayout = ImageLayout.Stretch; //Adatto l'immagine di sfondo alla finestra
+
             Inizializzazioni(); // funzione per le inizializzazioni
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            if (this.BackgroundImage != null)
+            {
+                e.Graphics.DrawImage(this.BackgroundImage, this.ClientRectangle);
+            }
+            else
+            {
+                base.OnPaintBackground(e);
+            }
         }
 
         private void Inizializzazioni()
@@ -39,41 +62,35 @@ namespace CampoMinato2
             int larghezza = this.Width = Screen.PrimaryScreen.Bounds.Width; // larghezza
             int altezza = this.Height = Screen.PrimaryScreen.Bounds.Height; // altezza
 
-            lbl_title.Left = (larghezza - lbl_title.Width) / 2;
-            lbl_title.Top = (altezza - lbl_title.Height) / 2 - 400;
             trk_AudioMusica.Left = (larghezza - trk_AudioMusica.Width) / 2;
-            trk_AudioMusica.Top = (altezza - trk_AudioMusica.Height) / 2 - 150;
+            trk_AudioMusica.Top = 450;
             trk_Sounds.Left = (larghezza - trk_Sounds.Width) / 2;
-            trk_Sounds.Top = (altezza - trk_Sounds.Height) / 2 + 50;
+            trk_Sounds.Top = 685;
 
-            //metto il label in alto a sinistra della trackbar
-            lbl_titleMusica.Left = trk_AudioMusica.Left - 150;
-            lbl_titleMusica.Top = trk_AudioMusica.Top - 57;
-            lbl_titleSuoni.Left = trk_Sounds.Left - 150;
-            lbl_titleSuoni.Top = trk_Sounds.Top - 57;
 
             //pulsanti mute / max vol
-            btn_MuteMusic.Left = trk_AudioMusica.Left - btn_MuteMusic.Width - 20;
-            btn_MuteMusic.Top = trk_AudioMusica.Top - 20;
-            btn_MaxMusic.Left = trk_AudioMusica.Left + trk_AudioMusica.Width + 20;
-            btn_MaxMusic.Top = trk_AudioMusica.Top - 20;
+            btn_MuteMusic.Left = trk_AudioMusica.Left - btn_MuteMusic.Width - 57;
+            btn_MuteMusic.Top = trk_AudioMusica.Top - 5;
+            btn_MaxMusic.Left = trk_AudioMusica.Left + trk_AudioMusica.Width + 57;
+            btn_MaxMusic.Top = trk_AudioMusica.Top - 5;
 
-            //pulsanti mute / max vol suoni
-            btn_MuteSounds.Left = trk_Sounds.Left - btn_MuteSounds.Width - 20;
-            btn_MuteSounds.Top = trk_Sounds.Top - 20;
-            btn_MaxSounds.Left = trk_Sounds.Left + trk_Sounds.Width + 20;
-            btn_MaxSounds.Top = trk_Sounds.Top - 20;
+            //pulsanti mute / max vol suon
+            btn_MuteSounds.Left = trk_Sounds.Left - btn_MuteSounds.Width - 57;
+            btn_MuteSounds.Top = trk_Sounds.Top - 5;
+            btn_MaxSounds.Left = trk_Sounds.Left + trk_Sounds.Width + 57;
+            btn_MaxSounds.Top = trk_Sounds.Top - 5;
 
             //pulsante esci
-            btn_Esci.Width = 452;
-            btn_Esci.Height = 190;
-            btn_Esci.Left = (larghezza - btn_Esci.Width) / 2;
-            btn_Esci.Top = (altezza - btn_Esci.Height) / 2 + 250;
-            btn_Esci.BackgroundImage = Image.FromFile("Esci.png");
+            btn_Esci.Width = 150;
+            btn_Esci.Height = 150;
+            btn_Esci.Left = 77;
+            btn_Esci.Top = 77;
+            btn_Esci.BackgroundImage = Image.FromFile("home.png");
             btn_Esci.BackgroundImageLayout = ImageLayout.Stretch;
             btn_Esci.FlatStyle = FlatStyle.Flat;
             btn_Esci.FlatAppearance.BorderSize = 0;
             btn_Esci.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_Esci.FlatAppearance.MouseDownBackColor = Color.Transparent;
 
 
 
@@ -87,7 +104,9 @@ namespace CampoMinato2
             audio = new AudioFileReader("musica.mp3");
             player = new WaveOutEvent();
             player.Init(audio);
+            //la musica suona in loop
             player.Play();
+            player.PlaybackStopped += (s, e) => { audio.Position = 0; player.Play(); };
 
             player.Volume = trk_AudioMusica.Value / 100f; // Imposta il volume iniziale
 
@@ -100,6 +119,10 @@ namespace CampoMinato2
             btn_MaxMusic.FlatAppearance.BorderSize = 0;
             btn_MuteMusic.FlatStyle = FlatStyle.Flat;
             btn_MuteMusic.FlatAppearance.BorderSize = 0;
+            btn_MaxMusic.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_MuteMusic.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_MaxMusic.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btn_MuteMusic.FlatAppearance.MouseDownBackColor = Color.Transparent;
 
             btn_MaxSounds.BackgroundImage = Image.FromFile("maxvol.png");
             btn_MaxSounds.BackgroundImageLayout = ImageLayout.Stretch;
@@ -109,6 +132,10 @@ namespace CampoMinato2
             btn_MaxSounds.FlatAppearance.BorderSize = 0;
             btn_MuteSounds.FlatStyle = FlatStyle.Flat;
             btn_MuteSounds.FlatAppearance.BorderSize = 0;
+            btn_MaxSounds.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_MuteSounds.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_MaxSounds.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btn_MuteSounds.FlatAppearance.MouseDownBackColor = Color.Transparent;
 
             //SUONI IMPOSTAZIONI
             trk_Sounds.Minimum = 0;
@@ -150,7 +177,7 @@ namespace CampoMinato2
             float percentuale = (float)(trk_AudioMusica.Value - trk_AudioMusica.Minimum) / (trk_AudioMusica.Maximum - trk_AudioMusica.Minimum);
             int lunghezzaUtilizzabile = trk_AudioMusica.Width - 16; // 16 ≈ margine del cursore
             int posizioneX = trk_AudioMusica.Left + (int)(percentuale * lunghezzaUtilizzabile);
-            lbl_Musica.Location = new Point(posizioneX, trk_AudioMusica.Top - lbl_Musica.Height);
+            lbl_Musica.Location = new Point(posizioneX - (lbl_Musica.Width / 2), trk_AudioMusica.Top - lbl_Musica.Height);
         }
 
         private void trk_Sounds_Scroll(object sender, EventArgs e)
@@ -159,7 +186,7 @@ namespace CampoMinato2
             float percentuale = (float)(trk_Sounds.Value - trk_Sounds.Minimum) / (trk_Sounds.Maximum - trk_Sounds.Minimum);
             int lunghezzaUtilizzabile = trk_Sounds.Width - 16; // 16 ≈ margine del cursore
             int posizioneX = trk_Sounds.Left + (int)(percentuale * lunghezzaUtilizzabile);
-            lbl_Suoni.Location = new Point(posizioneX, trk_Sounds.Top - lbl_Suoni.Height);
+            lbl_Suoni.Location = new Point(posizioneX - (lbl_Suoni.Width / 2), trk_Sounds.Top - lbl_Suoni.Height);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -182,7 +209,7 @@ namespace CampoMinato2
             int posizioneX = trk_AudioMusica.Left + (int)(percentuale * lunghezzaUtilizzabile);
             lbl_Musica.Location = new Point(posizioneX, trk_AudioMusica.Top - lbl_Musica.Height);
 
-
+            pulsantePremuto();
         }
 
         private void btn_MaxMusic_Click(object sender, EventArgs e)
@@ -194,6 +221,8 @@ namespace CampoMinato2
             int lunghezzaUtilizzabile = trk_AudioMusica.Width - 16; // 16 ≈ margine del cursore
             int posizioneX = trk_AudioMusica.Left + (int)(percentuale * lunghezzaUtilizzabile);
             lbl_Musica.Location = new Point(posizioneX, trk_AudioMusica.Top - lbl_Musica.Height);
+
+            pulsantePremuto();
         }
 
         private void btn_MuteSounds_Click(object sender, EventArgs e)
@@ -205,6 +234,8 @@ namespace CampoMinato2
             int lunghezzaUtilizzabile = trk_Sounds.Width - 16; // 16 ≈ margine del cursore
             int posizioneX = trk_Sounds.Left + (int)(percentuale * lunghezzaUtilizzabile);
             lbl_Suoni.Location = new Point(posizioneX, trk_Sounds.Top - lbl_Suoni.Height);
+
+            pulsantePremuto();
         }
 
         private void btn_MaxSounds_Click(object sender, EventArgs e)
@@ -216,8 +247,10 @@ namespace CampoMinato2
             int lunghezzaUtilizzabile = trk_Sounds.Width - 16; // 16 ≈ margine del cursore
             int posizioneX = trk_Sounds.Left + (int)(percentuale * lunghezzaUtilizzabile);
             lbl_Suoni.Location = new Point(posizioneX, trk_Sounds.Top - lbl_Suoni.Height);
+
+            pulsantePremuto();
         }
-        
+
         public void pulsantePremuto()
         {
             // trigger del suono quando si preme un pulsante
@@ -231,7 +264,7 @@ namespace CampoMinato2
             playerSuono.Volume = trk_Sounds.Value / 100f; // volume con trackbar
             playerSuono.Play();
         }
-        
+
         public void cellaCliccata()
         {
             if (playerSuono != null)
@@ -248,8 +281,8 @@ namespace CampoMinato2
 
         private void btn_Esci_Click(object sender, EventArgs e)
         {
+            pulsantePremuto();
             this.Hide(); // Nasconde la finestra delle impostazioni
         }
-        */
     }
 }

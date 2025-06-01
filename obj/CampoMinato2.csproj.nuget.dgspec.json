@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\CampoMinato2.csproj": {}
+    "C:\\Users\\Eros\\Desktop\\campominatofine\\CampoMinato2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\CampoMinato2.csproj": {
+    "C:\\Users\\Eros\\Desktop\\campominatofine\\CampoMinato2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\CampoMinato2.csproj",
+        "projectUniqueName": "C:\\Users\\Eros\\Desktop\\campominatofine\\CampoMinato2.csproj",
         "projectName": "CampoMinato2",
-        "projectPath": "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\CampoMinato2.csproj",
+        "projectPath": "C:\\Users\\Eros\\Desktop\\campominatofine\\CampoMinato2.csproj",
         "packagesPath": "C:\\Users\\Eros\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\obj\\",
+        "outputPath": "C:\\Users\\Eros\\Desktop\\campominatofine\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

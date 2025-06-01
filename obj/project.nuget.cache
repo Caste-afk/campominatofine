@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "H4xH83FN2as=",
+  "dgSpecHash": "k3Md4v9o3Gk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\CampoMinato2.csproj",
+  "projectFilePath": "C:\\Users\\Eros\\Desktop\\campominatofine\\CampoMinato2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Eros\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Eros\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

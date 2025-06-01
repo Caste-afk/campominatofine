@@ -1,13 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\",
+  "WorkspaceRootPath": "C:\\Users\\Eros\\Desktop\\campominatofine\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E7A71CC4-E067-4545-B369-6BA8E2FBED7F}|CampoMinato2.csproj|c:\\users\\eros\\desktop\\sd;ljbhvslduikvbhsdb\\campominato_finale\\eros\\fcarica.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E7A71CC4-E067-4545-B369-6BA8E2FBED7F}|CampoMinato2.csproj|c:\\users\\eros\\desktop\\campominatofine\\finformazioni.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E7A71CC4-E067-4545-B369-6BA8E2FBED7F}|CampoMinato2.csproj|solutionrelative:finformazioni.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E7A71CC4-E067-4545-B369-6BA8E2FBED7F}|CampoMinato2.csproj|c:\\users\\eros\\desktop\\campominatofine\\fcarica.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E7A71CC4-E067-4545-B369-6BA8E2FBED7F}|CampoMinato2.csproj|solutionrelative:fcarica.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E7A71CC4-E067-4545-B369-6BA8E2FBED7F}|CampoMinato2.csproj|c:\\users\\eros\\desktop\\sd;ljbhvslduikvbhsdb\\campominato_finale\\eros\\fcarica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E7A71CC4-E067-4545-B369-6BA8E2FBED7F}|CampoMinato2.csproj|c:\\users\\eros\\desktop\\campominatofine\\fcarica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E7A71CC4-E067-4545-B369-6BA8E2FBED7F}|CampoMinato2.csproj|solutionrelative:fcarica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -27,23 +31,35 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FCarica.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\FCarica.Designer.cs",
-              "RelativeDocumentMoniker": "FCarica.Designer.cs",
-              "ToolTip": "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\FCarica.Designer.cs",
-              "RelativeToolTip": "FCarica.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFQAAAASAAAAAAAAAA==",
+              "Title": "FInformazioni.cs",
+              "DocumentMoniker": "C:\\Users\\Eros\\Desktop\\campominatofine\\FInformazioni.cs",
+              "RelativeDocumentMoniker": "FInformazioni.cs",
+              "ToolTip": "C:\\Users\\Eros\\Desktop\\campominatofine\\FInformazioni.cs",
+              "RelativeToolTip": "FInformazioni.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-01T12:17:58.31Z",
+              "WhenOpened": "2025-06-01T12:30:28.68Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "FCarica.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Eros\\Desktop\\campominatofine\\FCarica.Designer.cs",
+              "RelativeDocumentMoniker": "FCarica.Designer.cs",
+              "ToolTip": "C:\\Users\\Eros\\Desktop\\campominatofine\\FCarica.Designer.cs",
+              "RelativeToolTip": "FCarica.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFQAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T12:17:58.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "FCarica.cs",
-              "DocumentMoniker": "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\FCarica.cs",
+              "DocumentMoniker": "C:\\Users\\Eros\\Desktop\\campominatofine\\FCarica.cs",
               "RelativeDocumentMoniker": "FCarica.cs",
-              "ToolTip": "C:\\Users\\Eros\\Desktop\\sd;ljbhvslduikvbhsdb\\CampoMinato_Finale\\eros\\FCarica.cs",
+              "ToolTip": "C:\\Users\\Eros\\Desktop\\campominatofine\\FCarica.cs",
               "RelativeToolTip": "FCarica.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
